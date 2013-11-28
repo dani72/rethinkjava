@@ -54,8 +54,8 @@ public class RqlConnectionImpl implements RqlConnection {
         if (_connected) {
             try {
                 _sc.close();
-            } catch (IOException ex) {
-                throw new RqlDriverException(ex.getMessage());
+            } catch (IOException e) {
+                throw new RqlDriverException("Could not close connection.", e);
             }
             _connected = false;
         }
@@ -69,8 +69,8 @@ public class RqlConnectionImpl implements RqlConnection {
         q.setQuery(query.build());
         try {
             send_raw(q.build().toByteArray());
-        } catch (IOException ex) {
-            throw new RqlDriverException(ex.getMessage());
+        } catch (IOException e) {
+            throw new RqlDriverException( "Could not execute query.", e);
         }
         Response rsp = get();
 
@@ -91,8 +91,8 @@ public class RqlConnectionImpl implements RqlConnection {
     public Response get() throws RqlDriverException {
         try {
             return recv_raw();
-        } catch (IOException ex) {
-            throw new RqlDriverException(ex.getMessage());
+        } catch (IOException e) {
+            throw new RqlDriverException("Could not get response.", e);
         }
     }
 
@@ -104,8 +104,8 @@ public class RqlConnectionImpl implements RqlConnection {
         try {
             send_raw(q.build().toByteArray());
             return recv_raw();
-        } catch (IOException ex) {
-            throw new RqlDriverException(ex.getMessage());
+        } catch (IOException e) {
+            throw new RqlDriverException( "Could not get more data.", e);
         }
     }
 
@@ -165,8 +165,8 @@ public class RqlConnectionImpl implements RqlConnection {
             }
 
             _connected = true;
-        } catch (IOException ex) {
-            throw new RqlDriverException(ex.getMessage());
+        } catch (IOException e) {
+            throw new RqlDriverException("Could not reconnect.", e);
         }
 
     }
