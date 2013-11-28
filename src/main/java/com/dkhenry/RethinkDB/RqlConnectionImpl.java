@@ -183,7 +183,7 @@ public class RqlConnectionImpl implements RqlConnection {
         return rethink_recv(_sc);
     }
 
-    public static RqlConnectionImpl connect(String hostname, int port) throws RqlDriverException {
+    static RqlConnectionImpl connect(String hostname, int port) throws RqlDriverException {
         RqlConnectionImpl r = new RqlConnectionImpl();
         r.set_hostname(hostname);
         r.set_port(port);

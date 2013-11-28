@@ -1,17 +1,17 @@
 package com.dkhenry;
 
+import com.dkhenry.RethinkDB.RethinkDB;
+import com.dkhenry.RethinkDB.RqlConnection;
+import com.dkhenry.RethinkDB.RqlCursor;
+import com.dkhenry.RethinkDB.errors.RqlDriverException;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
-
-import com.dkhenry.RethinkDB.*; 
-import com.dkhenry.RethinkDB.errors.RqlDriverException;
 
 public class SpeedTest {
 	public static String randomString(Random rng, String characters, int length)
@@ -26,7 +26,7 @@ public class SpeedTest {
 		
 	@DataProvider(name="insertSizeCounters")
 	public Iterator<Object[]> termTypes() {
-		ArrayList<Object[]> counts = new ArrayList<Object[]>();
+		ArrayList<Object[]> counts = new ArrayList<>();
 		for(int i =0; i < 12 ; i++) {
 			counts.add(new Integer[] { Integer.valueOf(Double.valueOf(Math.pow(2.0,i)).intValue()) } );
 		}
@@ -39,10 +39,10 @@ public class SpeedTest {
 		SecureRandom random = new SecureRandom();
 		String database = new BigInteger(130, random).toString(32);
 		String table = new BigInteger(130, random).toString(32);
-		RqlConnectionImpl r = RqlConnectionImpl.connect("localhost",28015);
+		RqlConnection r = RethinkDB.connect("localhost",28015);
 		r.run(r.db_create(database));
 		r.run(r.db(database).table_create(table));
-		ArrayList<HashMap<String,String>> values = new ArrayList<HashMap<String,String>>();
+		ArrayList<HashMap<String,String>> values = new ArrayList<>();
 		for(int i = 0; i < count; i++) {
 			final String rkey = randomString(random,"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",512);
 			final String rvalue = randomString(random,"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",512);

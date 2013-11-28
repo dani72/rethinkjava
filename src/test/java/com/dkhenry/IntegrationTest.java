@@ -1,5 +1,10 @@
 package com.dkhenry;
 
+import com.dkhenry.RethinkDB.RethinkDB;
+import com.dkhenry.RethinkDB.RqlConnection;
+import com.dkhenry.RethinkDB.RqlCursor;
+import com.dkhenry.RethinkDB.RqlObject;
+import com.dkhenry.RethinkDB.errors.RqlDriverException;
 import org.testng.annotations.Test;
 
 import java.math.BigInteger;
@@ -8,15 +13,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.dkhenry.RethinkDB.*; 
-import com.dkhenry.RethinkDB.errors.RqlDriverException;
-
 public class IntegrationTest {
 	@Test
 	public void createAndListDb() throws RqlDriverException {		 
 		SecureRandom random = new SecureRandom();
 		String database = new BigInteger(130, random).toString(32);
-		RqlConnectionImpl r = RqlConnectionImpl.connect("localhost",28015);
+		RqlConnection r = RethinkDB.connect("localhost",28015);
 		RqlCursor cursor = r.run(r.db_create(database));
 		RqlObject obj = cursor.next();					
 		assert Double.valueOf(1.0).equals(obj.getAs("created")) : "Database was not created successfully ";
@@ -41,7 +43,7 @@ public class IntegrationTest {
 		SecureRandom random = new SecureRandom();
 		String database = new BigInteger(130, random).toString(32);
 		String table = new BigInteger(130, random).toString(32);
-		RqlConnectionImpl r = RqlConnectionImpl.connect("localhost",28015);
+		RqlConnection r = RethinkDB.connect("localhost",28015);
 		r.run(r.db_create(database));
 		RqlCursor cursor = r.run(r.db(database).table_create(table));
 		assert Double.valueOf(1.0).equals(cursor.next().getAs("created")) : "Table was not created successfully ";		
@@ -66,7 +68,7 @@ public class IntegrationTest {
 		SecureRandom random = new SecureRandom();
 		String database = new BigInteger(130, random).toString(32);
 		String table = new BigInteger(130, random).toString(32);
-		RqlConnectionImpl r = RqlConnectionImpl.connect("localhost",28015);
+		RqlConnection r = RethinkDB.connect("localhost",28015);
 		r.run(r.db_create(database));
 		r.run(r.db(database).table_create(table));
 		
