@@ -39,7 +39,7 @@ public class SpeedTest {
 		SecureRandom random = new SecureRandom();
 		String database = new BigInteger(130, random).toString(32);
 		String table = new BigInteger(130, random).toString(32);
-		RqlConnection r = RqlConnection.connect("localhost",28015);
+		RqlConnectionImpl r = RqlConnectionImpl.connect("localhost",28015);
 		r.run(r.db_create(database));
 		r.run(r.db(database).table_create(table));
 		ArrayList<HashMap<String,String>> values = new ArrayList<HashMap<String,String>>();

@@ -16,7 +16,7 @@ public class IntegrationTest {
 	public void createAndListDb() throws RqlDriverException {		 
 		SecureRandom random = new SecureRandom();
 		String database = new BigInteger(130, random).toString(32);
-		RqlConnection r = RqlConnection.connect("localhost",28015);
+		RqlConnectionImpl r = RqlConnectionImpl.connect("localhost",28015);
 		RqlCursor cursor = r.run(r.db_create(database));
 		RqlObject obj = cursor.next();					
 		assert Double.valueOf(1.0).equals(obj.getAs("created")) : "Database was not created successfully ";
@@ -41,7 +41,7 @@ public class IntegrationTest {
 		SecureRandom random = new SecureRandom();
 		String database = new BigInteger(130, random).toString(32);
 		String table = new BigInteger(130, random).toString(32);
-		RqlConnection r = RqlConnection.connect("localhost",28015);
+		RqlConnectionImpl r = RqlConnectionImpl.connect("localhost",28015);
 		r.run(r.db_create(database));
 		RqlCursor cursor = r.run(r.db(database).table_create(table));
 		assert Double.valueOf(1.0).equals(cursor.next().getAs("created")) : "Table was not created successfully ";		
@@ -66,7 +66,7 @@ public class IntegrationTest {
 		SecureRandom random = new SecureRandom();
 		String database = new BigInteger(130, random).toString(32);
 		String table = new BigInteger(130, random).toString(32);
-		RqlConnection r = RqlConnection.connect("localhost",28015);
+		RqlConnectionImpl r = RqlConnectionImpl.connect("localhost",28015);
 		r.run(r.db_create(database));
 		r.run(r.db(database).table_create(table));
 		

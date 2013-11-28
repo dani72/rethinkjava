@@ -15,7 +15,7 @@ public class ConnectionTest {
     public void testConnection(){
 		boolean rvalue = false;
 		try { 
-			RqlConnection r = RqlConnection.connect("localhost",28015);
+			RqlConnectionImpl r = RqlConnectionImpl.connect("localhost",28015);
 			r.close();
 		} catch (RqlDriverException e) {
 			rvalue = true; 
@@ -27,9 +27,9 @@ public class ConnectionTest {
 	@Test
 	public void testDatabaseCreate() {
 		boolean rvalue = false;
-		RqlConnection r;
+		RqlConnectionImpl r;
 		try {
-			r = RqlConnection.connect("localhost",28015);
+			r = RqlConnectionImpl.connect("localhost",28015);
 			//r.db_create('superheroes').run(conn)
 			RqlCursor cursor = r.run(r.db_create("superheroes"));
 			r.close();
@@ -44,9 +44,9 @@ public class ConnectionTest {
 	@Test
 	public void testDatabaseList() { 
 		boolean rvalue = false;
-		RqlConnection r;
+		RqlConnectionImpl r;
 		try {
-			r = RqlConnection.connect("localhost",28015);
+			r = RqlConnectionImpl.connect("localhost",28015);
 			//r.db_list().run(conn)
 			r.run(r.db_list());			
 			r.close();
@@ -61,9 +61,9 @@ public class ConnectionTest {
 	@Test
 	public void testDatabaseDrop() {
 		boolean rvalue = false;
-		RqlConnection r;
+		RqlConnectionImpl r;
 		try {
-			r = RqlConnection.connect("localhost",28015);
+			r = RqlConnectionImpl.connect("localhost",28015);
 			//r.db_drop('superheroes').run(conn)
 			r.run(r.db_drop("superheroes")).toString();			
 			r.close();
@@ -78,9 +78,9 @@ public class ConnectionTest {
 	@Test
 	public void testTableCreate() {
 		boolean rvalue = false; 
-		RqlConnection r;
+		RqlConnectionImpl r;
 		try {
-			r = RqlConnection.connect("localhost",28015);
+			r = RqlConnectionImpl.connect("localhost",28015);
 			// r.db('test').table_create('dc_universe').run(conn)
 			r.run(r.db_create("test12345"));
 			r.run(r.db("test12345").table_create("dc_universe"));
@@ -97,9 +97,9 @@ public class ConnectionTest {
 	@Test
 	public void testTableList() {
 		boolean rvalue= false ;	
-		RqlConnection r;
+		RqlConnectionImpl r;
 		try {
-			r = RqlConnection.connect("localhost",28015);
+			r = RqlConnectionImpl.connect("localhost",28015);
 			// r.db('test').table_list().run(conn)
 			r.run(r.db_create("test12345"));
 			r.run(r.db("test12345").table_list());
@@ -116,9 +116,9 @@ public class ConnectionTest {
 	@Test
 	public void testTableDrop() {
 		boolean rvalue = false;
-		RqlConnection r;
+		RqlConnectionImpl r;
 		try {
-			r = RqlConnection.connect("localhost",28015);
+			r = RqlConnectionImpl.connect("localhost",28015);
 			// r.db('test').table_drop('dc_universe').run(conn)
 			r.run(r.db_create("test12345"));
 			r.run(r.db("test12345").table_create("dc_universe"));

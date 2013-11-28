@@ -8,7 +8,7 @@ import com.rethinkdb.Ql2.Response;
 
 public class RqlCursor implements Iterable<RqlObject> ,Iterator<RqlObject> {
 	
-	private RqlConnection _connection;
+	private RqlConnectionImpl _connection;
 	private Response _response; 
 	private int _index; 
 	
@@ -16,12 +16,12 @@ public class RqlCursor implements Iterable<RqlObject> ,Iterator<RqlObject> {
 		return _response.toString();
 	}
 	
-	public RqlCursor(RqlConnection conn) {
+	public RqlCursor(RqlConnectionImpl conn) {
 		_connection = conn;
 		_index = 0;
 	}
 	
-	public RqlCursor(RqlConnection conn, Response rsp) {
+	public RqlCursor(RqlConnectionImpl conn, Response rsp) {
 		_connection = conn;
 		_response = rsp; 
 		_index = 0;
