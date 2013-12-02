@@ -1,9 +1,9 @@
 package com.dkhenry;
 
-import com.dkhenry.RethinkDB.RethinkDB;
-import com.dkhenry.RethinkDB.RqlConnection;
-import com.dkhenry.RethinkDB.RqlCursor;
-import com.dkhenry.RethinkDB.errors.RqlDriverException;
+import com.rethinkdb.RethinkDB;
+import com.rethinkdb.RqlConnection;
+import com.rethinkdb.RqlCursor;
+import com.rethinkdb.RqlDriverException;
 import org.testng.annotations.Test;
 import org.testng.AssertJUnit;
 

@@ -1,12 +1,11 @@
 package com.dkhenry;
 
+import com.rethinkdb.impl.Datum;
 import org.testng.annotations.Test;
 import org.testng.AssertJUnit;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.HashMap;
-
-import com.dkhenry.RethinkDB.Datum;;
 
 public class DatumTest {
 	
