@@ -1,28 +1,18 @@
-package com.dkhenry.RethinkDB;
+package com.rethinkdb.impl;
 
+import com.rethinkdb.RqlCursor;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-import com.dkhenry.RethinkDB.errors.RqlDriverException;
+import com.rethinkdb.RqlDriverException;
 import com.rethinkdb.Ql2.Response;
 
-public class RqlCursor implements Iterable<RqlObject>, Iterator<RqlObject> {
+public class RqlCursorImpl implements RqlCursor {
 
     private final RqlConnectionImpl _connection;
     private Response _response;
     private int _index;
 
-    @Override
-    public String toString() {
-        return _response.toString();
-    }
-
-    public RqlCursor(RqlConnectionImpl conn) {
-        _connection = conn;
-        _index = 0;
-    }
-
-    public RqlCursor(RqlConnectionImpl conn, Response rsp) {
+    public RqlCursorImpl(RqlConnectionImpl conn, Response rsp) {
         _connection = conn;
         _response = rsp;
         _index = 0;
@@ -60,5 +50,10 @@ public class RqlCursor implements Iterable<RqlObject>, Iterator<RqlObject> {
     @Override
     public void remove() {
         throw new UnsupportedOperationException("Removing rows from a RqlCursor is not currently supported");
+    }
+
+    @Override
+    public String toString() {
+        return _response.toString();
     }
 }

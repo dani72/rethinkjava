@@ -1,4 +1,4 @@
-package com.dkhenry.RethinkDB;
+package com.rethinkdb.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.dkhenry.RethinkDB.errors.RqlDriverException;
+import com.rethinkdb.RqlDriverException;
 
 public class Datum {
 	/* Datum Constructors */
@@ -53,9 +53,11 @@ public class Datum {
     public static <T> com.rethinkdb.Ql2.Datum datum(List<T> a) {
     	com.rethinkdb.Ql2.Datum.Builder b =  com.rethinkdb.Ql2.Datum.newBuilder()
     			.setType(com.rethinkdb.Ql2.Datum.DatumType.R_ARRAY);
+        
     	for(T value: a) {
-    		b.addRArray(datum(value));
+            b.addRArray(datum(value));
     	}
+        
     	return b.build();
     }
     
@@ -64,8 +66,8 @@ public class Datum {
     	com.rethinkdb.Ql2.Datum.Builder b = com.rethinkdb.Ql2.Datum.newBuilder()
     			.setType(com.rethinkdb.Ql2.Datum.DatumType.R_OBJECT);
     	for(Entry<K, V> entry: h.entrySet()) {
-    		b.addRObject(
-    				com.rethinkdb.Ql2.Datum.AssocPair.newBuilder()
+            b.addRObject(
+                com.rethinkdb.Ql2.Datum.AssocPair.newBuilder()
     					.setKey(entry.getKey().toString())
     					.setVal(datum(entry.getValue()))
     					.build()
@@ -74,7 +76,7 @@ public class Datum {
     	return b.build();
     }
     
-    public static Object deconstruct(com.rethinkdb.Ql2.Datum d) throws RqlDriverException {
+    public static Object deconstruct(com.rethinkdb.Ql2.Datum d) {
     	switch(d.getType()) { 
     	case R_NULL:
     		return null;
@@ -85,13 +87,13 @@ public class Datum {
     	case R_STR:
     		return d.getRStr();
     	case R_ARRAY:
-    		ArrayList<Object> l = new ArrayList<Object>(); 
+    		ArrayList<Object> l = new ArrayList<>(); 
     		for(com.rethinkdb.Ql2.Datum datum :d.getRArrayList()) {
     			l.add(deconstruct(datum));
     		}
     		return l;
     	case R_OBJECT:
-    		HashMap<String,Object> m = new HashMap<String, Object>();
+    		HashMap<String,Object> m = new HashMap<>();
     		for(com.rethinkdb.Ql2.Datum.AssocPair ap :d.getRObjectList()) {
     			m.put(ap.getKey(),deconstruct(ap.getVal()));
     		}

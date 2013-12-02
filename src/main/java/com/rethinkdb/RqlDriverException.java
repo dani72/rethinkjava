@@ -1,4 +1,4 @@
-package com.dkhenry.RethinkDB.errors;
+package com.rethinkdb;
 
 public class RqlDriverException extends RuntimeException {
 

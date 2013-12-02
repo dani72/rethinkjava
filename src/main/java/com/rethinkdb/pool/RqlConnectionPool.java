@@ -1,12 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.dkhenry.RethinkDB;
+package com.rethinkdb.pool;
 
-import com.dkhenry.RethinkDB.errors.RqlDriverException;
-import com.dkhenry.RethinkDB.errors.RqlException;
+import com.rethinkdb.RqlConnection;
+import com.rethinkdb.RethinkDB;
+import com.rethinkdb.RqlCursor;
+import com.rethinkdb.RqlException;
+import com.rethinkdb.impl.RqlQuery;
+import com.rethinkdb.impl.RqlTopLevelQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;

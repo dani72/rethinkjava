@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 
-package com.dkhenry.RethinkDB;
+package com.rethinkdb;
 
-import com.dkhenry.RethinkDB.errors.RqlDriverException;
+import com.rethinkdb.impl.RqlQuery;
+import com.rethinkdb.impl.RqlTopLevelQuery;
 
 /**
  *
@@ -15,7 +16,7 @@ import com.dkhenry.RethinkDB.errors.RqlDriverException;
 public interface RqlConnection extends AutoCloseable {
 
     @Override
-    void close() throws RqlDriverException;
+    void close();
 
     RqlTopLevelQuery.DB db(Object... args);
 
@@ -27,5 +28,5 @@ public interface RqlConnection extends AutoCloseable {
 
     RqlQuery.Table table(Object... args);
     
-    RqlCursor run(RqlQuery query) throws RqlDriverException;
+    RqlCursor run(RqlQuery query);
 }
