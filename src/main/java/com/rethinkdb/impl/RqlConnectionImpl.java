@@ -34,7 +34,7 @@ public class RqlConnectionImpl implements RqlConnection {
     }
 
     @Override
-    public RqlCursorImpl run(RqlQuery query) {
+    public RqlCursorImpl execute(RqlQuery query) {
         Query.Builder q = com.rethinkdb.Ql2.Query.newBuilder();
 
         q.setType(Query.QueryType.START);

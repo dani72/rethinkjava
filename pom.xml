@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>rethinkjava</name>
-    <url>https://github.com/dkhenry/rethinkjava</url>
+    <url>https://github.com/dani72/rethinkjava</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,7 +20,7 @@
         <repository>
             <id>github</id>
             <name>GitHub ${project.artifactId} Repository</name>
-            <url>https://raw.github.com/dkhenry/${project.artifactId}/mvn-repo</url>
+            <url>https://raw.github.com/dani72/rethinkjava/mvn-repo</url>
         </repository>
     </distributionManagement>
     <build>
@@ -143,7 +143,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.8.5</version>
+            <version>6.8.7</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -156,10 +156,10 @@
     <scm>
         <url>https://github.com:dkhenry/rethinkjava.git</url>
         <connection>scm:git:git://github.com:dkhenry/rethinkjava.git</connection>
-        <developerConnection>scm:git:git@github.com:dkhenry/rethinkjava.git</developerConnection>
+        <developerConnection>scm:git:git@github.com/dani72/rethinkjava.git</developerConnection>
     </scm>
     <issueManagement>
-        <url>https://github.com/dkhenry/rethinkjava/issues</url>
+        <url>https://github.com/dani72/rethinkjava/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
 </project>

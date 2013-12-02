@@ -29,7 +29,7 @@ public class ConnectionTest {
         boolean rvalue = false;
 
         try (RqlConnection r = RethinkDB.connect("localhost", 28015)) {
-            RqlCursor cursor = r.run(r.db_create("superheroes"));
+            RqlCursor cursor = r.execute(r.db_create("superheroes"));
         } 
         catch (RqlDriverException e) {
             e.printStackTrace();
@@ -44,7 +44,7 @@ public class ConnectionTest {
         boolean rvalue = false;
 
         try (RqlConnection r = RethinkDB.connect("localhost", 28015)) {
-            r.run(r.db_list());
+            r.execute(r.db_list());
             r.close();
         } 
         catch (RqlDriverException e) {
@@ -60,7 +60,7 @@ public class ConnectionTest {
         boolean rvalue = false;
 
         try (RqlConnection r = RethinkDB.connect("localhost", 28015)) {
-            r.run(r.db_drop("superheroes")).toString();
+            r.execute(r.db_drop("superheroes")).toString();
             r.close();
         }
         catch (RqlDriverException e) {
@@ -76,9 +76,9 @@ public class ConnectionTest {
         boolean rvalue = false;
 
         try(RqlConnection r = RethinkDB.connect( "localhost", 28015)) {
-            r.run(r.db_create("test12345"));
-            r.run(r.db("test12345").table_create("dc_universe"));
-            r.run(r.db_drop("test12345"));
+            r.execute(r.db_create("test12345"));
+            r.execute(r.db("test12345").table_create("dc_universe"));
+            r.execute(r.db_drop("test12345"));
             r.close();
         }
         catch (RqlDriverException e) {
@@ -94,9 +94,9 @@ public class ConnectionTest {
         boolean rvalue = false;
 
         try(RqlConnection r = RethinkDB.connect( "localhost", 28015)) {
-            r.run(r.db_create("test12345"));
-            r.run(r.db("test12345").table_list());
-            r.run(r.db_drop("test12345"));
+            r.execute(r.db_create("test12345"));
+            r.execute(r.db("test12345").table_list());
+            r.execute(r.db_drop("test12345"));
             r.close();
         }
         catch (RqlDriverException e) {
@@ -112,10 +112,10 @@ public class ConnectionTest {
         boolean rvalue = false;
 
         try( RqlConnection r = RethinkDB.connect( "localhost", 28015)) {
-            r.run(r.db_create("test12345"));
-            r.run(r.db("test12345").table_create("dc_universe"));
-            r.run(r.db("test12345").table_drop("dc_universe"));
-            r.run(r.db_drop("test12345"));
+            r.execute(r.db_create("test12345"));
+            r.execute(r.db("test12345").table_create("dc_universe"));
+            r.execute(r.db("test12345").table_drop("dc_universe"));
+            r.execute(r.db_drop("test12345"));
             r.close();
         }
         catch (RqlDriverException e) {

@@ -328,7 +328,7 @@ abstract public class RqlQuery {
 
     public static class Datum extends RqlQuery {
 
-        private Object _data;
+        private final Object _data;
 
         public <T> Datum(T t) {
             super();
@@ -496,6 +496,7 @@ abstract public class RqlQuery {
             return prepend_construct(args, RqlMethodQuery.IndexList.class);
         }
 
+        @Override
         public RqlMethodQuery.Filter filter(Object... args) {
             return prepend_construct(args, RqlMethodQuery.Filter.class);
         }

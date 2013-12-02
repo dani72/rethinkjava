@@ -170,8 +170,8 @@ public class RqlConnectionPool {
         }
 
         @Override
-        public RqlCursor run(RqlQuery query) {
-            return _connection.run( query);
+        public RqlCursor execute(RqlQuery query) {
+            return _connection.execute( query);
         }
     }
 };

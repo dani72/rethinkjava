@@ -11,7 +11,7 @@ public class CompletnessTest {
 	
 	@DataProvider(name="termTypeNames")
 	public Iterator<Object[]> termTypes() {
-		ArrayList<Object[]> types = new ArrayList<Object[]>();
+		ArrayList<Object[]> types = new ArrayList<>();
 		for(Term.TermType type: Term.TermType.values()) {
 			
 			String name = type.name();
