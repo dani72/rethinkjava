@@ -9,6 +9,8 @@ import java.util.Map.Entry;
 
 import com.rethinkdb.Ql2.Term;
 import com.rethinkdb.Ql2.Term.TermType;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 abstract public class RqlQuery {
 
@@ -305,9 +307,14 @@ abstract public class RqlQuery {
         if (t instanceof Map) {
             return new MakeObj((Map) t);
         }
+        if( t instanceof Date) {
+            return new Iso8601( format.format( (Date)t));
+        }
         return new RqlQuery.Datum(t);
     }
 
+    private static final SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss.SSSX");
+    
     public Term build() {
         Term.Builder t = Term.newBuilder()
                 .setType(tt());
@@ -458,6 +465,17 @@ abstract public class RqlQuery {
         @Override
         protected TermType tt() {
             return Term.TermType.FUNCALL;
+        }
+    }
+    
+    public static class Iso8601 extends RqlQuery {
+        public Iso8601( Object... args) {
+            construct( args);
+        }
+        
+        @Override
+        protected TermType tt() {
+            return Term.TermType.ISO8601;
         }
     }
 

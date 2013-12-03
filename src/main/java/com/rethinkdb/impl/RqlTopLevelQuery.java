@@ -32,7 +32,7 @@ public abstract class RqlTopLevelQuery extends RqlQuery {
             return Term.TermType.JSON;
         }
     }
-
+    
     public static class UserError extends RqlTopLevelQuery {
 
         public UserError(Object... args) {
