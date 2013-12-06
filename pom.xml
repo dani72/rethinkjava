@@ -8,7 +8,7 @@
     <version>0.7-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>rethinkjava</name>
+    <name>rethinkdb-java-driver</name>
     <url>https://github.com/dani72/rethinkjava</url>
 
     <properties>
@@ -94,7 +94,7 @@
                         <include>**/*</include>
                     </includes>
                     <repositoryName>rethinkjava</repositoryName>      <!-- github repo name -->
-                    <repositoryOwner>dkhenry</repositoryOwner>    <!-- github username -->
+                    <repositoryOwner>dani72</repositoryOwner>    <!-- github username -->
                 </configuration>
                 <executions>
                     <!-- run site-maven-plugin's 'site' target as part of the build's normal 

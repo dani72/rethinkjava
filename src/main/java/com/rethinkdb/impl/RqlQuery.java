@@ -9,6 +9,9 @@ import java.util.Map.Entry;
 
 import com.rethinkdb.Ql2.Term;
 import com.rethinkdb.Ql2.Term.TermType;
+import com.rethinkdb.RqlDriverException;
+import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,14 +20,14 @@ abstract public class RqlQuery {
     protected ArrayList<RqlQuery> _args = new ArrayList<>();
     protected HashMap<String, Object> _optargs = new HashMap<>();
 
-    public RqlQuery() {
+    protected RqlQuery() {
     }
 
-    public RqlQuery(Object... args) {
-
+    protected RqlQuery(Object... args) {
+        construct( args);
     }
 
-    protected void construct(Object[] args) {
+    private void construct(Object[] args) {
         for (Object o : args) {
             _args.add(eval(o));
         }
@@ -37,8 +40,9 @@ abstract public class RqlQuery {
             o[0] = this;
             System.arraycopy(args, 0, o, 1, args.length);
             return (T) ctor.newInstance(new Object[]{o});
-        } catch (Exception ex) {
-            return null;
+        } 
+        catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            throw new RqlDriverException( "Could not prepend arguments.", e);
         }
     }
 
@@ -315,6 +319,19 @@ abstract public class RqlQuery {
 
     private static final SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss.SSSX");
     
+    private synchronized static String formatDate( Date d) {
+        return format.format( d);
+    }
+    
+    private synchronized static Date parseDate( String d) {
+        try {
+            return format.parse( d);
+        }
+        catch( ParseException e) {
+            throw new RqlDriverException( "Could not parse date <" + d + ">.");
+        }
+    }
+    
     public Term build() {
         Term.Builder t = Term.newBuilder()
                 .setType(tt());
@@ -360,6 +377,7 @@ abstract public class RqlQuery {
 
         public <T> MakeArray(List<T> l) {
             super();
+            
             for (T t : l) {
                 _args.add(eval(t));
             }
@@ -387,7 +405,7 @@ abstract public class RqlQuery {
     public static class Var extends RqlQuery {
 
         public Var(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -399,7 +417,7 @@ abstract public class RqlQuery {
     public static class Default extends RqlQuery {
 
         public Default(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -411,7 +429,7 @@ abstract public class RqlQuery {
     public static class ImplicitVar extends RqlQuery {
 
         public ImplicitVar(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -423,7 +441,7 @@ abstract public class RqlQuery {
     public static class Not extends RqlQuery {
 
         public Not(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -435,7 +453,7 @@ abstract public class RqlQuery {
     public static class Slice extends RqlQuery {
 
         public Slice(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -447,7 +465,7 @@ abstract public class RqlQuery {
     public static class GetField extends RqlQuery {
 
         public GetField(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -459,7 +477,7 @@ abstract public class RqlQuery {
     public static class FunCall extends RqlQuery {
 
         public FunCall(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -470,7 +488,7 @@ abstract public class RqlQuery {
     
     public static class Iso8601 extends RqlQuery {
         public Iso8601( Object... args) {
-            construct( args);
+            super( args);
         }
         
         @Override
@@ -482,7 +500,7 @@ abstract public class RqlQuery {
     public static class Table extends RqlQuery {
 
         public Table(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -523,7 +541,7 @@ abstract public class RqlQuery {
     public static class Nth extends RqlQuery {
 
         public Nth(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -535,7 +553,7 @@ abstract public class RqlQuery {
     public static class Match extends RqlQuery {
 
         public Match(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -547,7 +565,7 @@ abstract public class RqlQuery {
     public static class Func extends RqlQuery {
 
         public Func(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override

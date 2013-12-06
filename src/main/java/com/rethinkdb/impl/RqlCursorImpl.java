@@ -42,8 +42,8 @@ public class RqlCursorImpl implements RqlCursor {
             catch (RqlDriverException e) {
                 throw new NoSuchElementException(e.getMessage());
             }
-
         }
+        
         throw new NoSuchElementException("The RqlCursor has no more elements");
     }
 

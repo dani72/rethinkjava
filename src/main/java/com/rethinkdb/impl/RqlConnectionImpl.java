@@ -73,47 +73,27 @@ public class RqlConnectionImpl implements RqlConnection {
     /* Utility functions to make a pretty API */
     @Override
     public RqlQuery.Table table(Object... args) {
-        RqlQuery.Table rvalue = new RqlQuery.Table();
-
-        rvalue.construct(args);
-        
-        return rvalue;
+        return new RqlQuery.Table( args);
     }
 
     @Override
     public RqlTopLevelQuery.DB db(Object... args) {
-        RqlTopLevelQuery.DB rvalue = new RqlTopLevelQuery.DB();
-        
-        rvalue.construct(args);
-        
-        return rvalue;
+        return new RqlTopLevelQuery.DB( args);
     }
 
     @Override
     public RqlTopLevelQuery.DbCreate db_create(Object... args) {
-        RqlTopLevelQuery.DbCreate rvalue = new RqlTopLevelQuery.DbCreate();
-        
-        rvalue.construct(args);
-        
-        return rvalue;
+        return new RqlTopLevelQuery.DbCreate( args);
     }
 
     @Override
     public RqlTopLevelQuery.DbDrop db_drop(Object... args) {
-        RqlTopLevelQuery.DbDrop rvalue = new RqlTopLevelQuery.DbDrop();
-        
-        rvalue.construct(args);
-        
-        return rvalue;
+        return new RqlTopLevelQuery.DbDrop( args);
     }
 
     @Override
     public RqlTopLevelQuery.DbList db_list(Object... args) {
-        RqlTopLevelQuery.DbList rvalue = new RqlTopLevelQuery.DbList();
-        
-        rvalue.construct(args);
-        
-        return rvalue;
+        return new RqlTopLevelQuery.DbList( args);
     }
 
     private long nextToken() {

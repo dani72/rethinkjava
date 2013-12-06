@@ -5,14 +5,14 @@ import com.rethinkdb.Ql2.Term.TermType;
 
 public abstract class RqlTopLevelQuery extends RqlQuery {
 
-    public RqlTopLevelQuery() {
-        super();
+    protected RqlTopLevelQuery( Object... args) {
+        super( args);
     }
-
+    
     public static class JavaScript extends RqlTopLevelQuery {
 
         public JavaScript(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -24,7 +24,7 @@ public abstract class RqlTopLevelQuery extends RqlQuery {
     public static class Json extends RqlTopLevelQuery {
 
         public Json(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -36,7 +36,7 @@ public abstract class RqlTopLevelQuery extends RqlQuery {
     public static class UserError extends RqlTopLevelQuery {
 
         public UserError(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -48,7 +48,7 @@ public abstract class RqlTopLevelQuery extends RqlQuery {
     public static class DB extends RqlTopLevelQuery {
 
         public DB(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -76,7 +76,7 @@ public abstract class RqlTopLevelQuery extends RqlQuery {
     public static class DbCreate extends RqlTopLevelQuery {
 
         public DbCreate(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -88,7 +88,7 @@ public abstract class RqlTopLevelQuery extends RqlQuery {
     public static class DbDrop extends RqlTopLevelQuery {
 
         public DbDrop(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -100,7 +100,7 @@ public abstract class RqlTopLevelQuery extends RqlQuery {
     public static class DbList extends RqlTopLevelQuery {
 
         public DbList(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -112,7 +112,7 @@ public abstract class RqlTopLevelQuery extends RqlQuery {
     public static class TableCreateTL extends RqlTopLevelQuery {
 
         public TableCreateTL(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -124,7 +124,7 @@ public abstract class RqlTopLevelQuery extends RqlQuery {
     public static class TableDropTL extends RqlTopLevelQuery {
 
         public TableDropTL(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -136,7 +136,7 @@ public abstract class RqlTopLevelQuery extends RqlQuery {
     public static class TableListTL extends RqlTopLevelQuery {
 
         public TableListTL(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -148,7 +148,7 @@ public abstract class RqlTopLevelQuery extends RqlQuery {
     public static class Asc extends RqlTopLevelQuery {
 
         public Asc(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -160,7 +160,7 @@ public abstract class RqlTopLevelQuery extends RqlQuery {
     public static class Desc extends RqlTopLevelQuery {
 
         public Desc(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
@@ -172,7 +172,7 @@ public abstract class RqlTopLevelQuery extends RqlQuery {
     public static class Branch extends RqlTopLevelQuery {
 
         public Branch(Object... args) {
-            construct(args);
+            super(args);
         }
 
         @Override
