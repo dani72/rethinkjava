@@ -1,7 +1,9 @@
 package com.rethinkdb;
 
+import com.rethinkdb.impl.RqlObject;
 import com.rethinkdb.impl.RqlQuery;
 import com.rethinkdb.impl.RqlTopLevelQuery;
+import java.util.stream.Stream;
 
 /**
  *
@@ -23,4 +25,6 @@ public interface RqlConnection extends AutoCloseable {
     RqlQuery.Table table(Object... args);
     
     RqlCursor execute(RqlQuery query);
+    
+    Stream<RqlObject> stream( RqlQuery query);
 }

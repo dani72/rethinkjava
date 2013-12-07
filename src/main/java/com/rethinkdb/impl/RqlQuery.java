@@ -11,14 +11,15 @@ import com.rethinkdb.Ql2.Term;
 import com.rethinkdb.Ql2.Term.TermType;
 import com.rethinkdb.RqlDriverException;
 import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-abstract public class RqlQuery {
+public abstract class RqlQuery {
 
+    private static final DateTimeFormatter format = DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss.SSSX");
+    
     protected ArrayList<RqlQuery> _args = new ArrayList<>();
-    protected HashMap<String, Object> _optargs = new HashMap<>();
+    protected Map<String, Object> _optargs = new HashMap<>();
 
     protected RqlQuery() {
     }
@@ -311,42 +312,27 @@ abstract public class RqlQuery {
         if (t instanceof Map) {
             return new MakeObj((Map) t);
         }
-        if( t instanceof Date) {
-            return new Iso8601( format.format( (Date)t));
+        if( t instanceof LocalDateTime) {
+            return new Iso8601( format.format( (LocalDateTime)t));
         }
         return new RqlQuery.Datum(t);
     }
-
-    private static final SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss.SSSX");
-    
-    private synchronized static String formatDate( Date d) {
-        return format.format( d);
-    }
-    
-    private synchronized static Date parseDate( String d) {
-        try {
-            return format.parse( d);
-        }
-        catch( ParseException e) {
-            throw new RqlDriverException( "Could not parse date <" + d + ">.");
-        }
-    }
     
     public Term build() {
-        Term.Builder t = Term.newBuilder()
-                .setType(tt());
+        Term.Builder t = Term.newBuilder().setType(tt());
+        
         for (RqlQuery q : _args) {
             t.addArgs(q.build());
         }
 
         for (Entry<String, Object> e : _optargs.entrySet()) {
-            t.addOptargs(
-                    Term.AssocPair.newBuilder()
-                    .setKey(e.getKey())
-                    .setVal(eval(e.getValue()).build())
-                    .build()
+            t.addOptargs( Term.AssocPair.newBuilder()
+                            .setKey(e.getKey())
+                            .setVal(eval(e.getValue()).build())
+                            .build()
             );
         }
+        
         return t.build();
     }
 
@@ -366,10 +352,10 @@ abstract public class RqlQuery {
 
         @Override
         public Term build() {
-            Term.Builder t = Term.newBuilder()
-                    .setType(tt());
-            t.setDatum(com.rethinkdb.impl.Datum.datum(_data));
-            return t.build();
+            return Term.newBuilder()
+                    .setType(tt())
+                    .setDatum(com.rethinkdb.impl.Datum.datum(_data))
+                    .build();
         }
     }
 

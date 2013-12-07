@@ -4,6 +4,7 @@ import com.rethinkdb.RqlConnection;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.RqlCursor;
 import com.rethinkdb.RqlException;
+import com.rethinkdb.impl.RqlObject;
 import com.rethinkdb.impl.RqlQuery;
 import com.rethinkdb.impl.RqlTopLevelQuery;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 /**
  *
@@ -172,6 +174,11 @@ public class RqlConnectionPool {
         @Override
         public RqlCursor execute(RqlQuery query) {
             return _connection.execute( query);
+        }
+
+        @Override
+        public Stream<RqlObject> stream(RqlQuery query) {
+            return _connection.stream( query);
         }
     }
 };

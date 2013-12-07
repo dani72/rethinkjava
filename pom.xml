@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.rethinkdb</groupId>
-    <artifactId>rethinkdb-java-driver</artifactId>
+    <artifactId>rethinkdb-java-driver-jdk8</artifactId>
     <version>0.7-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -41,8 +41,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -154,7 +154,7 @@
     </dependencies>
     <description>Java Driver for RethinkDB</description>
     <scm>
-        <url>https://github.com:dkhenry/rethinkjava.git</url>
+        <url>https://github.com/dani72/rethinkjava.git</url>
         <connection>scm:git:git://github.com:dkhenry/rethinkjava.git</connection>
         <developerConnection>scm:git:git@github.com/dani72/rethinkjava.git</developerConnection>
     </scm>

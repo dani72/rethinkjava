@@ -5,9 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import com.rethinkdb.RqlDriverException;
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class Datum {
     /* Datum Constructors */
@@ -52,10 +53,6 @@ public class Datum {
         } 
         else if (t instanceof Map) {
             return datum((Map) t);
-        }
-        else if( t instanceof Date) {
-            System.out.println( "Encountered date.");
-            return datum(t.toString());
         }
         else {
             return datum(t.toString());
@@ -106,14 +103,13 @@ public class Datum {
                 }
                 return l;
             case R_OBJECT:
-                HashMap<String, Object> m = new HashMap<>();
+                Map<String, Object> m = new HashMap<>();
                 for (com.rethinkdb.Ql2.Datum.AssocPair ap : d.getRObjectList()) {
                     m.put(ap.getKey(), deconstruct(ap.getVal()));
                 }
                 
                 if( "TIME".equals( m.get( "$reql_type$"))) {
-                    double value = ((Double)m.get( "epoch_time")) * 1000;
-                    return new Date( (long)value);
+                    return deconstructTimestamp( m);
                 }
                 else {
                     return m;
@@ -121,5 +117,14 @@ public class Datum {
             default:
                 throw new RqlDriverException("Unknown Datum Type " + d.getType().toString() + " presented for Deconstruction");
         }
+    }
+    
+    private static LocalDateTime deconstructTimestamp( Map<String, Object> m) {
+        double value = ((Double)m.get( "epoch_time")) * 1000;
+        String tz = (String)m.get( "timezone");
+        Instant time = Instant.ofEpochMilli( (long)value);
+        ZoneId zoneId = ZoneId.of( tz);
+
+        return LocalDateTime.ofInstant( time, zoneId);
     }
 }

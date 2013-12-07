@@ -6,6 +6,10 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.rethinkdb.RqlDriverException;
 import com.rethinkdb.Ql2.Query;
 import com.rethinkdb.Ql2.Response;
+import com.rethinkdb.RqlCursor;
+import java.util.Spliterators;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class RqlConnectionImpl implements RqlConnection {
 
@@ -116,5 +120,12 @@ public class RqlConnectionImpl implements RqlConnection {
         catch( IOException e) {
             throw new RqlDriverException( "Could not receive response.", e);
         }
+    }
+
+    @Override
+    public Stream<RqlObject> stream(RqlQuery query) {
+        RqlCursor cursor = execute( query);
+        
+        return StreamSupport.stream( Spliterators.spliteratorUnknownSize( cursor, 0), false);
     }
 }
