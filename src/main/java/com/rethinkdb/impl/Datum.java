@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import com.rethinkdb.RqlDriverException;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class Datum {
     /* Datum Constructors */
@@ -119,12 +119,12 @@ public class Datum {
         }
     }
     
-    private static LocalDateTime deconstructTimestamp( Map<String, Object> m) {
+    private static ZonedDateTime deconstructTimestamp( Map<String, Object> m) {
         double value = ((Double)m.get( "epoch_time")) * 1000;
         String tz = (String)m.get( "timezone");
         Instant time = Instant.ofEpochMilli( (long)value);
         ZoneId zoneId = ZoneId.of( tz);
 
-        return LocalDateTime.ofInstant( time, zoneId);
+        return ZonedDateTime.ofInstant( time, zoneId);
     }
 }

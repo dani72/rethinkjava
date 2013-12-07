@@ -11,7 +11,7 @@ import com.rethinkdb.Ql2.Term;
 import com.rethinkdb.Ql2.Term.TermType;
 import com.rethinkdb.RqlDriverException;
 import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public abstract class RqlQuery {
@@ -312,8 +312,8 @@ public abstract class RqlQuery {
         if (t instanceof Map) {
             return new MakeObj((Map) t);
         }
-        if( t instanceof LocalDateTime) {
-            return new Iso8601( format.format( (LocalDateTime)t));
+        if( t instanceof ZonedDateTime) {
+            return new Iso8601( format.format( (ZonedDateTime)t));
         }
         return new RqlQuery.Datum(t);
     }
