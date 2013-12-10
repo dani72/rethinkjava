@@ -2,7 +2,9 @@ rethinkjava
 ===========
 
 This is a refactored version of the Java/JVM Drivers for RethinkDB ( rethinkdb.com ) by dkhenry.
-
+* Support for JDK7 try-with-resources (AutoCloseable) on RqlConnection
+* Connection-Pooling for RqlConnections
+* Support for Date-Values
 
 # Status
 This drivers are being worked on now and is currently in progress. I make no claims about the usability, stability, or safety of this code. 
